@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لینکو | دانلودر پریمیوم اندروید</title>
+    <meta name="description" content="LINQO - دانلودر اندروید با طراحی شیشه‌ای و مدرن. مدیریت دانلود از یوتیوب، اینستاگرام و اسپاتیفای.">
+    
+    <!-- Google Fonts: Vazirmatn -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* =========================================
+           CSS VARIABLES & RESET
+           ========================================= */
+        :root {
+            --bg-base: #050508;
+            --bg-secondary: #0a0a12;
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            
+            /* Accent Colors */
+            --accent-violet: #8b5cf6;
+            --accent-blue: #3b82f6;
+            --accent-cyan: #06b6d4;
+            --accent-pink: #ec4899;
+            
+            /* Glassmorphism */
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-border-hover: rgba(255, 255, 255, 0.2);
+            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            --blur: blur(16px);
+            
+            --font-family: 'Vazirmatn', sans-serif;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--font-family);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Ambient Background Lights */
+        .ambient-light {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: -1;
+            opacity: 0.4;
+            animation: drift 20s infinite alternate;
+        }
+        .light-1 {
+            width: 50vw; height: 50vw;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.4) 0%, transparent 70%);
+            top: -10%; right: -10%;
+        }
+        .light-2 {
+            width: 40vw; height: 40vw;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.4) 0%, transparent 70%);
+            bottom: -10%; left: -10%;
+            animation-delay: -5s;
+        }
+        .light-3 {
+            width: 30vw; height: 30vw;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.3) 0%, transparent 70%);
+            top: 40%; left: 20%;
+            animation-delay: -10s;
+        }
+
+        @keyframes drift {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(-30px, 30px) scale(1.1); }
+        }
+
+        /* =========================================
+           TYPOGRAPHY & UTILITIES
+           ========================================= */
+        h1, h2, h3 { font-weight: 800; line-height: 1.3; }
+        p { color: var(--text-secondary); font-weight: 300; }
+        a { text-decoration: none; color: inherit; }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, var(--accent-violet), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            margin-top: 5rem;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 4rem auto;
+        }
+
+        /* Glass Card Style */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: var(--blur);
+            -webkit-backdrop-filter: var(--blur);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            box-shadow: var(--glass-shadow);
+            transition: var(--transition);
+        }
+        .glass-card:hover {
+            border-color: var(--glass-border-hover);
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 28px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            outline: none;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-violet), var(--accent-blue));
+            color: white;
+            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.3);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(139, 92, 246, 0.5);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: var(--blur);
+        }
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--glass-border-hover);
+            transform: translateY(-2px);
+        }
+
+        /* Icons */
+        svg {
+            width: 24px;
+            height: 24px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* Scroll Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* =========================================
+           NAVBAR
+           ========================================= */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            padding: 20px 0;
+            transition: var(--transition);
+        }
+        nav.scrolled {
+            padding: 12px 0;
+            background: rgba(5, 5, 8, 0.8);
+            backdrop-filter: var(--blur);
+            -webkit-backdrop-filter: var(--blur);
+            border-bottom: 1px solid var(--glass-border);
+        }
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo-icon {
+            width: 32px; height: 32px;
+            background: linear-gradient(135deg, var(--accent-violet), var(--accent-cyan));
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .logo-icon svg { stroke: white; width: 18px; height: 18px; }
+        
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+        .nav-links a {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        /* =========================================
+           HERO SECTION
+           ========================================= */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: 100px;
+        }
+        
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 100px;
+            font-size: 0.9rem;
+            color: var(--accent-violet);
+            margin-bottom: 24px;
+        }
+        
+        .hero h1 {
+            font-size: 4.5rem;
+            margin-bottom: 24px;
+            letter-spacing: -1px;
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto 40px auto;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* =========================================
+           SHOWCASE SECTION (App Mockups)
+           ========================================= */
+        .showcase {
+            padding: 5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .showcase-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            perspective: 1000px;
+        }
+
+        .phone-mockup {
+            width: 300px;
+            height: 620px;
+            border-radius: 40px;
+            background: #000;
+            border: 8px solid #1a1a24;
+            box-shadow: 
+                0 0 0 2px rgba(255,255,255,0.05),
+                0 30px 60px rgba(0,0,0,0.8),
+                inset 0 0 20px rgba(0,0,0,1);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.5s ease;
+        }
+        
+        .phone-mockup:hover {
+            transform: translateY(-10px) scale(1.02);
+        }
+
+        .phone-mockup img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 32px;
+        }
+
+        /* Phone Notch */
+        .phone-mockup::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 25px;
+            background: #000;
+            border-radius: 20px;
+            z-index: 10;
+        }
+
+        /* Stagger the mockups */
+        .phone-1 { transform: translateY(40px) rotateY(5deg); z-index: 1; }
+        .phone-2 { transform: translateY(-20px) rotateY(-5deg); z-index: 2; }
+        
+        .phone-1:hover { transform: translateY(30px) rotateY(0deg) scale(1.02); }
+        .phone-2:hover { transform: translateY(-30px) rotateY(0deg) scale(1.02); }
+
+        /* =========================================
+           FEATURES SECTION
+           ========================================= */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            padding-bottom: 5rem;
+        }
+
+        .feature-card {
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-cyan);
+        }
+        
+        .feature-card:nth-child(2) .feature-icon { color: var(--accent-violet); }
+        .feature-card:nth-child(3) .feature-icon { color: var(--accent-blue); }
+        .feature-card:nth-child(4) .feature-icon { color: var(--accent-pink); }
+        .feature-card:nth-child(5) .feature-icon { color: #10b981; }
+
+        .feature-card h3 { font-size: 1.25rem; }
+        .feature-card p { font-size: 0.95rem; }
+
+        /* =========================================
+           DOWNLOAD SECTION
+           ========================================= */
+        .download-section {
+            padding: 5rem 0;
+        }
+        
+        .download-card {
+            padding: 48px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .download-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, var(--accent-violet), var(--accent-cyan));
+        }
+
+        .download-actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 32px;
+        }
+
+        /* =========================================
+           FOOTER
+           ========================================= */
+        footer {
+            padding: 40px 0;
+            border-top: 1px solid var(--glass-border);
+            margin-top: 5rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 24px;
+        }
+        
+        .footer-links a {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+        .footer-links a:hover { color: white; }
+
+        /* =========================================
+           RESPONSIVE DESIGN
+           ========================================= */
+        @media (max-width: 992px) {
+            .hero h1 { font-size: 3.5rem; }
+            .showcase-wrapper { flex-direction: column; gap: 60px; }
+            .phone-1, .phone-2 { transform: none; }
+            .phone-1:hover, .phone-2:hover { transform: translateY(-10px); }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero p { font-size: 1.1rem; }
+            .hero-buttons { flex-direction: column; width: 100%; max-width: 300px; margin: 0 auto; }
+            .btn { width: 100%; }
+            .nav-links { display: none; } /* Mobile menu would go here */
+            .footer-content { flex-direction: column; gap: 20px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Ambient Background Lights -->
+    <div class="ambient-light light-1"></div>
+    <div class="ambient-light light-2"></div>
+    <div class="ambient-light light-3"></div>
+
+    <!-- NAVBAR -->
+    <nav id="navbar">
+        <div class="container nav-content">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                </div>
+                LINQO
+            </div>
+            <div class="nav-links">
+                <a href="#features">امکانات</a>
+                <a href="#showcase">نمای برنامه</a>
+                <a href="https://itsllzx.github.io/LINQO" class="btn btn-primary" style="padding: 8px 20px; font-size: 0.9rem;">
+                    دانلود برنامه
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero container" id="home">
+        <div class="reveal">
+            <div class="badge">
+                <svg viewBox="0 0 24 24" style="width:16px;height:16px;"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+                دانلودر پریمیوم و مدرن اندروید
+            </div>
+            
+            <h1>مدیریت دانلود،<br>با طراحی <span class="text-gradient">شیشه‌ای</span></h1>
+            
+            <p>
+                لینکو یک دانلودر قدرتمند برای اندروید است که با رابط کاربری شیشه‌ای، تجربه‌ای مدرن و بی‌نقص از دانلود فایل‌ها در یوتیوب، اینستاگرام و اسپاتیفای را برای شما به ارمغان می‌آورد.
+            </p>
+            
+            <div class="hero-buttons">
+                <a href="https://itsllzx.github.io/LINQO" class="btn btn-primary" target="_blank">
+                    <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                    دانلود مستقیم اپلیکیشن
+                </a>
+                <a href="#showcase" class="btn btn-secondary">
+                    <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+                    مشاهده تصاویر
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SHOWCASE SECTION -->
+    <section class="showcase container" id="showcase">
+        <div class="showcase-wrapper reveal">
+            
+            <!-- Phone Mockup 1 -->
+            <div class="phone-mockup phone-1">
+                <!-- ===================================================== -->
+                <!-- ⚠️ تصویر شماره ۱ (داشبورد) را اینجا قرار دهید ⚠️ -->
+                <!-- کافیست عکس را با نام 1.jpg کنار فایل html بگذارید و src را تغییر دهید -->
+                <!-- ===================================================== -->
+                <img src="https://placehold.co/300x620/12121a/ffffff?text=تصویر+شماره+۱\n(داشبورد)" alt="LINQO Dashboard Screenshot" style="object-fit: cover; background: #12121a;">
+            </div>
+
+            <!-- Phone Mockup 2 -->
+            <div class="phone-mockup phone-2">
+                <!-- ===================================================== -->
+                <!-- ⚠️ تصویر شماره ۲ (آمار) را اینجا قرار دهید ⚠️ -->
+                <!-- کافیست عکس را با نام 2.jpg کنار فایل html بگذارید و src را تغییر دهید -->
+                <!-- ===================================================== -->
+                <img src="https://placehold.co/300x620/12121a/ffffff?text=تصویر+شماره+۲\n(آمار)" alt="LINQO Statistics Screenshot" style="object-fit: cover; background: #12121a;">
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FEATURES SECTION -->
+    <section class="container" id="features">
+        <h2 class="section-title reveal">امکانات <span class="text-gradient">لینکو</span></h2>
+        <p class="section-subtitle reveal">تمام آنچه برای مدیریت هوشمندانه دانلودهای خود نیاز دارید، در یک رابط کاربری بی‌نظیر.</p>
+
+        <div class="features-grid">
+            
+            <div class="glass-card feature-card reveal">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                </div>
+                <h3>بررسی لینک</h3>
+                <p>لینک‌های خود را از پلتفرم‌های مختلف وارد کنید. لینکو لینک را بررسی کرده و فایل را با بالاترین کیفیت ممکن دریافت می‌کند.</p>
+            </div>
+
+            <div class="glass-card feature-card reveal">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line></svg>
+                </div>
+                <h3>مدیریت دانلودها</h3>
+                <p>دانلودهای در حال انجام، تکمیل شده و پاکسازی شده را در یک نگاه مشاهده و مدیریت کنید.</p>
+            </div>
+
+            <div class="glass-card feature-card reveal">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                </div>
+                <h3>علاقه‌مندی‌ها</h3>
+                <p>فایل‌های مورد علاقه خود را ذخیره کنید تا بعداً به راحتی به آن‌ها دسترسی داشته باشید و آن‌ها را مدیریت کنید.</p>
+            </div>
+
+            <div class="glass-card feature-card reveal">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24"><path d="M18 20V10"></path><path d="M12 20V4"></path><path d="M6 20v-6"></path></svg>
+                </div>
+                <h3>آمار دانلودها</h3>
+                <p>نگاهی دقیق به آمار دانلودهای خود داشته باشید. حجم کل دانلود شده، تعداد فایل‌ها و وضعیت آن‌ها را بررسی کنید.</p>
+            </div>
+
+            <div class="glass-card feature-card reveal">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                </div>
+                <h3>تفکیک پلتفرم</h3>
+                <p>آمار دانلودهای خود را بر اساس پلتفرم مبدا (مانند یوتیوب، اینستاگرام و اسپاتیفای) به صورت دقیق مشاهده کنید.</p>
+            </div>
+
+            <!-- UI Showcase Card -->
+            <div class="glass-card feature-card reveal" style="display: flex; justify-content: center; align-items: center; background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(6, 182, 212, 0.1));">
+                <div style="text-align: center;">
+                    <h3 style="margin-bottom: 16px;">رابط کاربری شیشه‌ای</h3>
+                    <p style="margin-bottom: 20px; font-size: 0.9rem;">طراحی مدرن و چشم‌نواز با افکت‌های Glassmorphism.</p>
+                    <a href="https://itsllzx.github.io/LINQO" class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.9rem;" target="_blank">دریافت برنامه</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- DOWNLOAD SECTION -->
+    <section class="download-section container" id="download">
+        <div class="glass-card download-card reveal">
+            <h2 style="font-size: 2.2rem; margin-bottom: 16px;">آماده تجربه لینکو هستید؟</h2>
+            <p style="max-width: 600px; margin: 0 auto 32px auto;">
+                همین حالا آخرین نسخه اپلیکیشن را دانلود کنید و مدیریت دانلودهای خود را به سطح بالاتری ببرید.
+            </p>
+
+            <div class="download-actions">
+                <!-- Main Download Link (Points to specified release page) -->
+                <a href="https://itsllzx.github.io/LINQO" class="btn btn-primary" target="_blank">
+                    <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                    ورود به صفحه دانلود
+                </a>
+                
+                <!-- GitHub Repo Link -->
+                <a href="https://github.com/Itsllzx/LINQO" class="btn btn-secondary" target="_blank">
+                    <svg viewBox="0 0 24 24" style="width: 18px; height: 18px;"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                    مخزن گیت‌هاب
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container footer-content">
+            <div class="logo" style="font-size: 1.4rem;">
+                <div class="logo-icon" style="width: 24px; height: 24px;">
+                    <svg viewBox="0 0 24 24" style="width: 14px; height: 14px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                </div>
+                LINQO
+            </div>
+            
+            <p style="font-size: 0.85rem; margin: 0;">طراحی شده با ❤️ برای اندروید</p>
+            
+            <div class="footer-links">
+                <a href="https://itsllzx.github.io/LINQO" target="_blank">صفحه دانلود</a>
+                <a href="#home">بازگشت به بالا ↑</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // 1. Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // 2. Intersection Observer for Scroll Reveal
+        const revealElements = document.querySelectorAll('.reveal');
+        
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            root: null,
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+    </script>
+</body>
+</html>
