@@ -1,0 +1,4 @@
+const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');observer.unobserve(entry.target)}}),{threshold:.12});document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+document.getElementById('year').textContent=new Date().getFullYear();
+const copyBtn=document.getElementById('copyCommand');copyBtn.addEventListener('click',async()=>{const cmd='git clone https://github.com/Itsllzx/LINQO.git';try{await navigator.clipboard.writeText(cmd);copyBtn.innerHTML='Copied! <span>✓</span>';setTimeout(()=>copyBtn.innerHTML='Copy command <span>▣</span>',1800)}catch{copyBtn.innerHTML='Select command manually <span>↗</span>'}});
+const menu=document.querySelector('.menu-toggle'),links=document.querySelector('.nav-links');menu.addEventListener('click',()=>links.classList.toggle('open'));links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>links.classList.remove('open')));
